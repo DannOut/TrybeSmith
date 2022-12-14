@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { productsSchema } from '../util/schemas';
-import errorMap, { Errors } from '../util/errorMap';
+import errorMap, { TErrors } from '../util/errorMap';
 
 //  prettier-ignore
 const validateProducts = (
@@ -12,7 +12,7 @@ const validateProducts = (
   const { error } = productsSchema.validate(productsInfo);
   if (error) {
     const { type, message } = error.details[0];
-    return res.status(errorMap(type as Errors)).json({ message });
+    return res.status(errorMap(type as TErrors)).json({ message });
   }
   next();
 };

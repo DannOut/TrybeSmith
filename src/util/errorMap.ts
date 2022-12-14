@@ -1,4 +1,4 @@
-export type Errors = 'any.required' | 'string.base' | 'string.min';
+export type TErrors = 'any.required' | 'string.base' | 'string.min';
 
 const errorMap = {
   'array.base': 422,
@@ -9,4 +9,4 @@ const errorMap = {
   'any.required': 400,
 };
 
-export default (error: Errors): number => errorMap[error] || 422;
+export default (error: TErrors): number => errorMap[error] || 422;
