@@ -12,6 +12,11 @@ class ProductsService {
   public create(product: IProduct): Promise<IProduct> {
     return this.model.create(product);
   }
+
+  //* Verificar o por que não precisa do async
+  public getAll(): Promise<IProduct[]> {
+    return this.model.getAll();
+  }
 }
 
 export default ProductsService;
