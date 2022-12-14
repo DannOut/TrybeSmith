@@ -11,4 +11,11 @@ const productsSchema = Joi.object({
   order_id: Joi.number().required(),
 });
 
-export { loginSchema, productsSchema };
+const userSchema = Joi.object({
+  username: Joi.string().required().min(3),
+  vocation: Joi.string().required().min(3),
+  level: Joi.number().required().min(1),
+  password: Joi.string().required().min(8),
+});
+
+export { loginSchema, productsSchema, userSchema };
