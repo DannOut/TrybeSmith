@@ -4,7 +4,7 @@ import UsersModel from '../models/users.model';
 import auth from '../Auth/AuthService';
 import ILogin from '../interfaces/ILogin';
 
-class UsersService {
+export default class UsersService {
   public model: UsersModel;
 
   constructor() {
@@ -18,13 +18,9 @@ class UsersService {
 
   public async login(login: ILogin) {
     const findUser = await this.model.findUserToLogin(login);
-    // quando não encontra retorna um array vazio
-    // se deixar só uma verificação da erro
     if (!findUser) {
       return { type: 'INVALID', message: 'Username or password invalid' };
     }
     return { type: null, message: auth(findUser) };
   }
 }
-
-export default UsersService;
