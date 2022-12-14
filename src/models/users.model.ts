@@ -21,9 +21,9 @@ export default class UsersModel {
   }
 
   // prettier-ignore
-  public async findUserToLogin(login: ILogin): Promise<IUsers[] | null> {
+  public async findUserToLogin(login: ILogin): Promise<IUsers | null> {
     const { username, password } = login;
-    const [rows] = await this.connection.execute<RowDataPacket[] & IUsers[]>(
+    const [[rows]] = await this.connection.execute<RowDataPacket[] & IUsers[]>(
       'SELECT * FROM Trybesmith.users WHERE username = ? AND password = ?',
       [username, password],
     );

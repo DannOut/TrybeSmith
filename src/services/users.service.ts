@@ -20,10 +20,10 @@ class UsersService {
     const findUser = await this.model.findUserToLogin(login);
     // quando não encontra retorna um array vazio
     // se deixar só uma verificação da erro
-    if (!findUser || findUser.length === 0) {
+    if (!findUser) {
       return { type: 'INVALID', message: 'Username or password invalid' };
     }
-    return { type: null, message: auth(findUser[0]) };
+    return { type: null, message: auth(findUser) };
   }
 }
 
