@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import UsersController from '../controllers/users.controller';
+import validateLogin from '../middlewares/validateLogin';
+
+const router = Router();
+const usersController = new UsersController();
+
+router.post('/', validateLogin, usersController.login);
+
+export default router;

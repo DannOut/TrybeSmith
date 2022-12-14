@@ -1,4 +1,5 @@
-import { Pool, ResultSetHeader } from 'mysql2/promise';
+import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
+import ILogin from '../interfaces/ILogin';
 import IUsers from '../interfaces/IUsers';
 
 export default class UsersModel {
@@ -17,5 +18,15 @@ export default class UsersModel {
     );
 
     return { id: insertId, ...users };
+  }
+
+  // prettier-ignore
+  public async findUserToLogin(login: ILogin): Promise<IUsers[] | null> {
+    const { username, password } = login;
+    const [rows] = await this.connection.execute<RowDataPacket[] & IUsers[]>(
+      'SELECT * FROM Trybesmith.users WHERE username = ? AND password = ?',
+      [username, password],
+    );
+    return rows;
   }
 }
