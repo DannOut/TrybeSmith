@@ -8,7 +8,6 @@ const loginSchema = Joi.object({
 const productsSchema = Joi.object({
   name: Joi.string().required().min(3),
   amount: Joi.string().required().min(3),
-  order_id: Joi.number().required(),
 });
 
 const userSchema = Joi.object({
