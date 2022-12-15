@@ -1,13 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
 import { orderSchema } from '../util/schemas';
+import errorMap, { TErrors } from '../util/errorMap';
 
-const validateOrder = (req: Request, res: Response, next: NextFunction) => {
-  const orderInfo = req.body;
-  const { error } = orderSchema.validate(orderInfo);
+//  prettier-ignore
+const validateProducts = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Response | void => {
+  const { productsIds } = req.body;
+  console.log('TESTE', productsIds);
+  const { error } = orderSchema.validate(productsIds);
+  console.log('ERROR', error);
   if (error) {
-    return res.status(400).json({ message: error.details[0].message });
+    const { type, message } = error.details[0];
+    return res.status(errorMap(type as TErrors)).json({ message });
   }
   next();
 };
 
-export default validateOrder;
+export default validateProducts;

@@ -3,7 +3,7 @@ import connection from '../models/connection';
 import ProductsModel from '../models/products.model';
 
 class ProductsService {
-  public model: ProductsModel;
+  private model: ProductsModel;
 
   constructor() {
     this.model = new ProductsModel(connection);
