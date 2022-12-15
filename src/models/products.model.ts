@@ -25,4 +25,12 @@ export default class ProductsModel {
     );
     return rows;
   }
+
+  // prettier-ignore
+  public async updateProductsByOrder(productId:number, orderId:number): Promise<void> {
+    await this.connection.execute(
+      'UPDATE Trybesmith.products SET order_id = ? WHERE id = ?',
+      [orderId, productId],
+    );
+  }
 }

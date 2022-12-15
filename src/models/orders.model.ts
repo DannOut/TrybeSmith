@@ -1,4 +1,4 @@
-import { Pool, RowDataPacket } from 'mysql2/promise';
+import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
 import IOrder from '../interfaces/IOrder';
 
 export default class OrdersModel {
@@ -18,5 +18,14 @@ export default class OrdersModel {
     );
 
     return rows;
+  }
+
+  // prettier-ignore
+  public async create(userId:number): Promise<number> {
+    const [{ insertId }] = await this.connection.execute<ResultSetHeader>(
+      'INSERT INTO Trybesmith.orders(user_id) VALUES (?)',
+      [userId],
+    );
+    return insertId;
   }
 }

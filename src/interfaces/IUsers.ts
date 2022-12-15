@@ -1,8 +1,8 @@
 interface IUsers {
   id?: number;
-  username?: string;
-  vocation?: string;
-  level?: number;
+  username: string;
+  vocation: string;
+  level: number;
   password?: string;
 }
 

@@ -17,6 +17,12 @@ class ProductsService {
   public getAll(): Promise<IProduct[]> {
     return this.model.getAll();
   }
+
+  // prettier-ignore
+  public async updateProductsByOrder(arrayProducts: number[], orderId: number): Promise<void> {
+    await Promise.all(arrayProducts.map((eachproduct) => 
+      this.model.updateProductsByOrder(eachproduct, orderId)));
+  }
 }
 
 export default ProductsService;
