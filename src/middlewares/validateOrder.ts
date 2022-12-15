@@ -3,15 +3,15 @@ import { orderSchema } from '../util/schemas';
 import errorMap, { TErrors } from '../util/errorMap';
 
 //  prettier-ignore
-const validateProducts = (
+const validateOrders = (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Response | void => {
-  const { productsIds } = req.body;
-  console.log('TESTE', productsIds);
-  const { error } = orderSchema.validate(productsIds);
-  console.log('ERROR', error);
+  const products = req.body;
+  const value = orderSchema.validate(products.productsIds);
+  // console.log('VALUE', value.error);
+  const { error } = value;
   if (error) {
     const { type, message } = error.details[0];
     return res.status(errorMap(type as TErrors)).json({ message });
@@ -19,4 +19,4 @@ const validateProducts = (
   next();
 };
 
-export default validateProducts;
+export default validateOrders;
