@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import IUsers from '../interfaces/IUsers';
-import ILogin from '../interfaces/ILogin';
 
 require('dotenv/config');
 
@@ -11,7 +10,7 @@ const jwtConfig: object = {
 
 const secret = process.env.JWT_SECRET || 'secret';
 
-const auth = (info: IUsers | ILogin): string => {
+const auth = (info: IUsers): string => {
   const { password, ...data } = info;
   const token = jwt.sign(data, secret, jwtConfig);
   return token;

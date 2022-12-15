@@ -1,4 +1,4 @@
-import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
+import { OkPacket, Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
 import IProduct from '../interfaces/IProduct';
 
 export default class ProductsModel {
@@ -28,7 +28,7 @@ export default class ProductsModel {
 
   // prettier-ignore
   public async updateProductsByOrder(productId:number, orderId:number): Promise<void> {
-    await this.connection.execute(
+    await this.connection.execute<OkPacket>(
       'UPDATE Trybesmith.products SET order_id = ? WHERE id = ?',
       [orderId, productId],
     );
