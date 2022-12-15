@@ -1,24 +1,23 @@
 import IProduct from '../interfaces/IProduct';
 import connection from '../models/connection';
+import OrdersModel from '../models/orders.model';
 import ProductsModel from '../models/products.model';
-import OrdersService from './orders.service';
 
 class ProductsService {
   private productsModel: ProductsModel;
 
-  private orderService: OrdersService;
+  private orderModel: OrdersModel;
 
   constructor() {
     this.productsModel = new ProductsModel(connection);
-    this.orderService = new OrdersService();
+    this.orderModel = new OrdersModel(connection);
   }
 
-  public create(product: IProduct): Promise<IProduct> {
+  public async create(product: IProduct): Promise<IProduct> {
     return this.productsModel.create(product);
   }
 
-  //* Verificar o por que não precisa do async
-  public getAll(): Promise<IProduct[]> {
+  public async getAll(): Promise<IProduct[]> {
     return this.productsModel.getAll();
   }
 
@@ -27,7 +26,7 @@ class ProductsService {
     arrayProducts: number[],
     userId: number,
   ): Promise<void> {
-    const orderId = await this.orderService.create(userId);
+    const orderId = await this.orderModel.create(userId);
     await Promise.all(
       arrayProducts.map((eachproduct) =>
         this.productsModel.updateProductsByOrder(eachproduct, orderId)),

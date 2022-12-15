@@ -11,10 +11,10 @@ class OrdersService {
 
   public getAll = async (): Promise<IOrder[]> => this.ordersModel.getAll();
 
-  public create = async (userId: number): Promise<number> => {
-    const orderToCreate = await this.ordersModel.create(userId);
-    return orderToCreate;
-  };
+  // public create = async (userId: number): Promise<number> => {
+  //   const orderToCreate = await this.ordersModel.create(userId);
+  //   return orderToCreate;
+  // };
 }
 
 export default OrdersService;
