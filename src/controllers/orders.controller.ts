@@ -17,8 +17,7 @@ class OrdersController {
   public create = async (req: Request, res: Response) => {
     const { id } = req.body.user;
     const { productsIds } = req.body;
-    const AddOrder = await this.ordersService.create(id);
-    await this.productsService.updateProductsByOrder(productsIds, AddOrder);
+    await this.productsService.updateProductsByOrder(productsIds, id);
     res.status(201).json({ userId: id, productsIds });
   };
 }

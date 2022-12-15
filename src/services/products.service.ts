@@ -1,27 +1,37 @@
 import IProduct from '../interfaces/IProduct';
 import connection from '../models/connection';
 import ProductsModel from '../models/products.model';
+import OrdersService from './orders.service';
 
 class ProductsService {
-  private model: ProductsModel;
+  private productsModel: ProductsModel;
+
+  private orderService: OrdersService;
 
   constructor() {
-    this.model = new ProductsModel(connection);
+    this.productsModel = new ProductsModel(connection);
+    this.orderService = new OrdersService();
   }
 
   public create(product: IProduct): Promise<IProduct> {
-    return this.model.create(product);
+    return this.productsModel.create(product);
   }
 
   //* Verificar o por que não precisa do async
   public getAll(): Promise<IProduct[]> {
-    return this.model.getAll();
+    return this.productsModel.getAll();
   }
 
-  // prettier-ignore
-  public async updateProductsByOrder(arrayProducts: number[], orderId: number): Promise<void> {
-    await Promise.all(arrayProducts.map((eachproduct) => 
-      this.model.updateProductsByOrder(eachproduct, orderId)));
+  //  prettier-ignore
+  public async updateProductsByOrder(
+    arrayProducts: number[],
+    userId: number,
+  ): Promise<void> {
+    const orderId = await this.orderService.create(userId);
+    await Promise.all(
+      arrayProducts.map((eachproduct) =>
+        this.productsModel.updateProductsByOrder(eachproduct, orderId)),
+    );
   }
 }
 
